@@ -60,7 +60,9 @@ public class Hangman
 			}
 		} while (true);
 
-		for(int g = 0; g < 12; g++) {
+		// Definining incorrectGuess
+		int incorrectGuess = 0;
+		while(incorrectGuess < 6) {
 			// Start of game
 			System.out.println("  -----");
 			System.out.println("  |   |");
@@ -69,6 +71,7 @@ public class Hangman
 			System.out.println("  |    ");
 			System.out.println("  |    ");
 			System.out.println("-----  ");
+			System.out.println(Arrays.toString(spaces));
 			System.out.println("Choose a letter: ");
 
 			// Choosing letter
@@ -85,16 +88,38 @@ public class Hangman
 					char wordChar = randomWord.charAt(i);
 					if (Character.toLowerCase(wordChar) == lowerCaseInputChar) {
 						spaces[i] = String.valueOf(inputChar);
-						System.out.println(Arrays.toString(spaces));
 					}
 				}
 			}
 			else {
 				System.out.println("That letter is not in the word.");
+				incorrectGuess++; // increases amount of incorrect guesses
 			}
-		} // closes for loop running the game 
-		// Testing line to see what the word was & test spaces
+
+			// checking if all spaces have been changed
+			boolean allGuessed = true;
+			for (String space : spaces) {
+				if (space.equals("-")) {
+					allGuessed = false;
+				}
+			}
+			
+			// if word is complete 
+			if(allGuessed) {
+			    System.out.println("\nCongratulations! You guessed the word!");
+			    System.out.println("Thanks for playing.");
+			    break;
+			}
+		} // closes while loop running the game
+
+		// if incorrectGuess has been reached
+		if(incorrectGuess == 6) {
+			System.out.println("\nYou've run out of guesses.");
+			System.out.println("The word was: " + randomWord);
+			System.out.println("Thanks for playing!");
+			System.exit(0);
+		}
+		// Testing line to see what the word was 
 		System.out.println(randomWord);
-		System.out.println(Arrays.toString(spaces));
 	}
 }
