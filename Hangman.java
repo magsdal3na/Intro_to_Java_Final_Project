@@ -60,17 +60,70 @@ public class Hangman
 			}
 		} while (true);
 
+		// Setting up different gallows
+		String[] gallowsDisplay = new String[7]; // start of game is 0
+		// 0 - start of game
+		gallowsDisplay[0] = "  -----\n" +
+		                    "  |   |\n" +
+		                    "  |    \n" +
+		                    "  |    \n" +
+		                    "  |    \n" +
+		                    "  |    \n" +
+		                    "-----  \n" ;
+		// 1 - head
+		gallowsDisplay[1] = "  -----\n" +
+		                    "  |   |\n" +
+		                    "  |   O\n" +
+		                    "  |    \n" +
+		                    "  |    \n" +
+		                    "  |    \n" +
+		                    "-----  \n" ;
+		// 2 - body
+		gallowsDisplay[2] = "  -----\n" +
+		                    "  |   |\n" +
+		                    "  |   O\n" +
+		                    "  |   |\n" +
+		                    "  |    \n" +
+		                    "  |    \n" +
+		                    "-----  \n" ;
+		// 3 - leg1
+		gallowsDisplay[3] = "  -----\n" +
+		                    "  |   |\n" +
+		                    "  |   O\n" +
+		                    "  |   |\n" +
+		                    "  |  / \n" +
+		                    "  |    \n" +
+		                    "-----  \n" ;
+		// 4 - leg2
+		gallowsDisplay[4] = "  -----  \n" +
+		                    "  |   |  \n" +
+		                    "  |   O  \n" +
+		                    "  |   |  \n" +
+		                    "  |  / \\\n" +
+		                    "  |      \n" +
+		                    "-----    \n" ;
+		// 5 - arm1
+		gallowsDisplay[5] = "  -----  \n" +
+		                    "  |   |  \n" +
+		                    "  |   O  \n" +
+		                    "  |  /|  \n" +
+		                    "  |  / \\\n" +
+		                    "  |      \n" +
+		                    "-----    \n" ;
+		// 6 - arm2 (body complete)
+		gallowsDisplay[6] = "  -----  \n" +
+		                    "  |   |  \n" +
+		                    "  |   O  \n" +
+		                    "  |  /|\\\n" +
+		                    "  |  / \\\n" +
+		                    "  |      \n" +
+		                    "-----    \n" ;
+
 		// Definining incorrectGuess
 		int incorrectGuess = 0;
 		while(incorrectGuess < 6) {
 			// Start of game
-			System.out.println("  -----");
-			System.out.println("  |   |");
-			System.out.println("  |    ");
-			System.out.println("  |    ");
-			System.out.println("  |    ");
-			System.out.println("  |    ");
-			System.out.println("-----  ");
+			printGallows(incorrectGuess, gallowsDisplay);
 			System.out.println(Arrays.toString(spaces));
 			System.out.println("Choose a letter: ");
 
@@ -103,23 +156,31 @@ public class Hangman
 					allGuessed = false;
 				}
 			}
-			
-			// if word is complete 
+
+			// if word is complete
 			if(allGuessed) {
-			    System.out.println("\nCongratulations! You guessed the word!");
-			    System.out.println("Thanks for playing.");
-			    break;
+				System.out.println("\nCongratulations! You guessed the word!");
+				System.out.println("Thanks for playing.");
+				break;
 			}
 		} // closes while loop running the game
 
 		// if incorrectGuess has been reached
 		if(incorrectGuess == 6) {
-			System.out.println("\nYou've run out of guesses.");
+			printGallows(incorrectGuess, gallowsDisplay);
+			System.out.println("You've run out of guesses.");
 			System.out.println("The word was: " + randomWord);
 			System.out.println("Thanks for playing!");
 			System.exit(0);
 		}
-		// Testing line to see what the word was 
+
+		// Testing line to see what the word was
 		System.out.println(randomWord);
+	}
+	// method for calling gallowsDisplay
+	public static void printGallows(int incorrectGuesses, String[] gallowsDisplay) {
+		if(incorrectGuesses >= 0 && incorrectGuesses < 7) {
+			System.out.println(gallowsDisplay[incorrectGuesses]);
+		}
 	}
 }
