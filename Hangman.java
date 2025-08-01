@@ -2,6 +2,7 @@ import java.util.Scanner; // needed to read player input
 import java.util.Random; // needed to generate random word
 import java.util.ArrayList; // needed to hold word list
 import java.util.Arrays; // needed to print out and use spaces
+import java.util.InputMismatchException; // needed for exception output
 
 public class Hangman
 {
@@ -41,9 +42,20 @@ public class Hangman
 			System.out.println("2. Quit");
 
 			// Initializes variable for selection
-			int choice = input.nextInt();
-			input.nextLine();
+			int choice = 0;
 
+			// try-catch block in case string is entered
+			try {
+				choice = input.nextInt();
+				input.nextLine();
+			}
+			catch (Exception e) {
+				System.out.println("\n");
+				System.out.println("That's an invalid option.");
+				System.out.println("Please enter 1 or 2.");
+				input.nextLine();
+				continue;
+			}
 			if(choice == 1) {
 				// Starts the game
 				System.out.println("Let's get started!");
@@ -51,10 +63,12 @@ public class Hangman
 			}
 			if(choice == 2) {
 				// Closes the game
+				System.out.println("\n");
 				System.out.println("Thanks for playing!");
 				System.exit(0);
 			}
 			else if((choice > 2) || (choice < 1)) {
+				System.out.println("\n");
 				System.out.println("That's an invalid number.");
 				System.out.println("Please input either 1 or 2.");
 			}
@@ -119,7 +133,7 @@ public class Hangman
 		                    "  |      \n" +
 		                    "-----    \n" ;
 
-		// Definining incorrectGuess
+		// Defining incorrectGuess
 		int incorrectGuess = 0;
 		while(incorrectGuess < 6) {
 			// Start of game
@@ -131,6 +145,12 @@ public class Hangman
 			char inputChar = input.next().charAt(0);
 			System.out.println("You chose: " + inputChar);
 			input.nextLine();
+			// Checking if a char or int
+			if(!Character.isLetter(inputChar)) {
+				System.out.println("That's not a valid option.");
+				System.out.println("Please enter a letter.");
+				continue;
+			}
 			char lowerCaseInputChar = Character.toLowerCase(inputChar);
 			// Checking for letter occurence
 			if(randomWord.toLowerCase().contains(String.valueOf(inputChar).toLowerCase())) {
@@ -173,11 +193,8 @@ public class Hangman
 			System.out.println("Thanks for playing!");
 			System.exit(0);
 		}
-
-		// Testing line to see what the word was
-		System.out.println(randomWord);
 	}
-	// method for calling gallowsDisplay
+	// method for calling and printing gallowsDisplay
 	public static void printGallows(int incorrectGuesses, String[] gallowsDisplay) {
 		if(incorrectGuesses >= 0 && incorrectGuesses < 7) {
 			System.out.println(gallowsDisplay[incorrectGuesses]);
