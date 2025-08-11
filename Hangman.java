@@ -17,6 +17,12 @@ public class Hangman
 		words.add("Access");
 		words.add("Carbon");
 		words.add("Editor");
+		words.add("Drinks");
+		words.add("Toucan");
+		words.add("Winter");
+		words.add("Yellow");
+		words.add("Papers");
+		words.add("Phones");
 		// Initialize random generator
 		Random randomGenerator = new Random();
 		// Add size of word array
