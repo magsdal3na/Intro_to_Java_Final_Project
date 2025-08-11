@@ -25,6 +25,8 @@ public class Hangman
 		String randomWord = words.get(randomIndex);
 		// Initialize spaces for letters
 		String[] spaces = {"-","-","-","-","-","-"};
+		// Sets up incorrectGuess storage array 
+		ArrayList<Character> incorrectLetters = new ArrayList<Character>();
 		// Initializes menu screen and starting image
 		System.out.println("Welcome to Hangman!");
 		System.out.println("  -----");
@@ -138,6 +140,11 @@ public class Hangman
 		while(incorrectGuess < 6) {
 			// Start of game
 			printGallows(incorrectGuess, gallowsDisplay);
+			System.out.println("Incorrect Guesses: ");
+			    for(char letter : incorrectLetters) {
+			        System.out.print(letter + " ");
+			    }
+			System.out.println();
 			System.out.println(Arrays.toString(spaces));
 			System.out.println("Choose a letter: ");
 
@@ -167,6 +174,7 @@ public class Hangman
 			else {
 				System.out.println("That letter is not in the word.");
 				incorrectGuess++; // increases amount of incorrect guesses
+				incorrectLetters.add(Character.toLowerCase(inputChar)); // adds letter to list
 			}
 
 			// checking if all spaces have been changed
